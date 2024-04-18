@@ -51,8 +51,9 @@ mp3btn.addEventListener("click", () => {
   const url = downloadurl.value;
   const dir = location.value;
   
+  document.getElementById("status").innerText = "Downloading...";
   child_process.exec(`${ytdlp} -x --audio-format mp3 -P home:${dir} ${url}`, (error: any, stdout: any, stderr: any) => {
-    console.log(`stdout: ${stdout}`);
-    console.log(`stderr: ${stderr}`);
+    document.getElementById("status").innerText = "Downloaded!";
   });
+
 });
