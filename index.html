@@ -2,20 +2,21 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Electron ytdlp downloader</title>
+    <title>Electron YT-DLP downloader</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <h1>Electron ytdlp downloader</h1>
-
+    <h1>YT-DLP downloader</h1>
       <input id="ytdlp" class="input-field" type="text" placeholder="ytdlp location">
       <input id="downloadurl" class="input-field" type="text" placeholder="URL of file">
       <input id="location" class="input-field" type="text" placeholder="where to download to">
       <div class="buttons">
         <button id="mp3" class="button" type="button">download mp3</button>
         <button id="mp4" class="button" type="button">download mp4</button>
-        <p id="status"></p>
+      </div>
+      <div class="status-container">
+        <p id="status" class="status"></p>
       </div>
 
     <script type="module" src="/src/renderer.ts"></script>

@@ -24,9 +24,15 @@ function getYTDLP(): string {
   return "";
 }
 
+function removeUrlBs(url: string): string {
+    // remove tracking from url
+    return url.split("?")[0];
+}
+
 function getDownloadUrl(): string {
   if (clipboard.readText().includes("https://")) {
-    return clipboard.readText();
+    return removeUrlBs(clipboard.readText());
+
   } else {
     return ""; // at to neni undefined
   }
@@ -46,14 +52,32 @@ ytdlpurl.value = getYTDLP();
 location.value = getDownloadDir();
 downloadurl.value = getDownloadUrl();
 
+downloadurl.addEventListener("click", () => {
+    downloadurl.value = getDownloadUrl();
+});
+
 mp3btn.addEventListener("click", () => {
   const ytdlp = ytdlpurl.value;
-  const url = downloadurl.value;
+  let url = downloadurl.value;
   const dir = location.value;
   
+  document.getElementById("status").classList.remove("status--success")
+  document.getElementById("status").classList.remove("status--error")
+  document.getElementById("status").classList.add("status--proccesing")
+
   document.getElementById("status").innerText = "Downloading...";
+
   child_process.exec(`${ytdlp} -x --audio-format mp3 -P home:${dir} ${url}`, (error: any, stdout: any, stderr: any) => {
-    document.getElementById("status").innerText = "Downloaded!";
+    document.getElementById("status").classList.remove("status--proccesing")
+
+    // check if error, else success
+    if (error) {
+      document.getElementById("status").classList.add("status--error")
+      document.getElementById("status").innerText = "Error";
+    } else {
+      document.getElementById("status").classList.add("status--success")
+      document.getElementById("status").innerText = "Success";
+    }
   });
 
 });
