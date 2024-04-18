@@ -16,7 +16,7 @@ function getYTDLP(): string {
   if (process.platform === "win32") {
     return "C:\\Windows\\System32\\yt-dlp.exe";
   } else if (process.platform === "darwin") {
-    return "/Applications/ytdlp-downloader/yt-dlp";
+    return "/Applications/ytdlp-downloader.app/yt-dlp";
   } else {
     return "/usr/bin/yt-dlp";
   }
@@ -72,8 +72,10 @@ mp3btn.addEventListener("click", () => {
 
     // check if error, else success
     if (error) {
+      console.log(stdout);
+      console.log(stderr);
       document.getElementById("status").classList.add("status--error")
-      document.getElementById("status").innerText = "Error";
+      document.getElementById("status").innerText = "Error, check console";
     } else {
       document.getElementById("status").classList.add("status--success")
       document.getElementById("status").innerText = "Success";
